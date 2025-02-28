@@ -6,6 +6,7 @@ import { Progress } from '@/components/ui/progress';
 import { EmptyState } from '@/components/ui/empty-state';
 import { BarChart, Calendar } from 'lucide-react';
 import { Loading } from '@/components/ui/loading';
+import { HabitCharts } from '@/components/stats/habit-charts';
 
 export function Stats() {
   const { habits, isLoading } = useHabits();
@@ -74,6 +75,8 @@ export function Stats() {
           </div>
         </CardContent>
       </Card>
+      
+      <HabitCharts habits={habits} />
       
       <div className="grid gap-8 md:grid-cols-2">
         <Card className="overflow-hidden">

@@ -1,10 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Plus, BarChart3, Home, Calendar } from 'lucide-react';
+import { Plus, BarChart3, Home, Calendar, LogIn, LogOut } from 'lucide-react';
 import { ModeToggle } from '@/components/mode-toggle';
+import { useAuth } from '@/context/AuthContext';
 
 export function Header() {
+  const { user, signOut } = useAuth();
+  const handleLogout = async () => {
+    await signOut();
+  };
+
   return (
     <header className="border-b sticky top-0 bg-background z-10">
       <div className="container flex h-16 items-center justify-between px-4">
@@ -25,14 +31,41 @@ export function Header() {
         </nav>
         
         <div className="flex items-center gap-2">
-          <Button asChild variant="outline" size="sm">
-            <Link to="/new">
-              <Plus className="h-4 w-4 mr-2" />
-              <span className="hidden sm:inline-block">New Habit</span>
-              <span className="sm:hidden">New</span>
-            </Link>
-          </Button>
-          <ModeToggle />
+          {user ? (
+            <>
+              <Button asChild variant="outline" size="sm">
+                <Link to="/new">
+                  <Plus className="h-4 w-4 mr-2" />
+                  <span className="hidden sm:inline-block">New Habit</span>
+                  <span className="sm:hidden">New</span>
+                </Link>
+              </Button>
+              <Button variant="outline" size="sm" onClick={handleLogout}>
+                <LogOut className="h-4 w-4 mr-2" />
+                <span className="hidden sm:inline-block">Sign Out</span>
+                <span className="sm:hidden">Sign Out</span>
+              </Button>
+              <ModeToggle />
+            </>
+          ) : (
+            <>
+              <Button asChild variant="outline" size="sm">
+                <Link to="/login">
+                  <LogIn className="h-4 w-4 mr-2" />
+                  <span className="hidden sm:inline-block">Sign In</span>
+                  <span className="sm:hidden">Sign In</span>
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="sm">
+                <Link to="/register">
+                  <Plus className="h-4 w-4 mr-2" />
+                  <span className="hidden sm:inline-block">Sign Up</span>
+                  <span className="sm:hidden">Sign Up</span>
+                </Link>
+              </Button>
+              <ModeToggle />
+            </>
+          )}
         </div>
       </div>
       
