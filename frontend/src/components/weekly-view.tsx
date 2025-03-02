@@ -1,10 +1,9 @@
-import React from 'react';
-import { Habit } from '@/types/habit';
 import { getWeekDays, getWeekDayName, isCurrentDay, formatDate } from '@/lib/utils';
 import { useHabits } from '@/context/HabitContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { cn } from '@/lib/utils';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 export function WeeklyView() {
   const { habits, toggleCompletion } = useHabits();
@@ -60,17 +59,34 @@ export function WeeklyView() {
                     {weekDays.map((day) => {
                       const dateStr = formatDate(day);
                       const isCompleted = habit.completions[dateStr];
+                      const isCurrent = isCurrentDay(day);
+                      const isDisabled = !isCurrent;
                       
                       return (
                         <td key={dateStr} className="p-2 sm:p-3 text-center">
                           <div className="flex justify-center">
-                            <Checkbox
-                              checked={isCompleted}
-                              onCheckedChange={() => toggleCompletion(habit.id, dateStr)}
-                              className={cn(
-                                isCurrentDay(day) ? "border-primary" : ""
-                              )}
-                            />
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <div>
+                                    <Checkbox
+                                      checked={isCompleted}
+                                      onCheckedChange={() => isCurrent && toggleCompletion(habit.id, dateStr)}
+                                      className={cn(
+                                        isCurrent ? "border-primary" : "opacity-50",
+                                        isDisabled && "cursor-not-allowed"
+                                      )}
+                                      disabled={isDisabled}
+                                    />
+                                  </div>
+                                </TooltipTrigger>
+                                {isDisabled && (
+                                  <TooltipContent>
+                                    <p>You can only track habits for the current day</p>
+                                  </TooltipContent>
+                                )}
+                              </Tooltip>
+                            </TooltipProvider>
                           </div>
                         </td>
                       );

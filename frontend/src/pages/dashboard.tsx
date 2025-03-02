@@ -1,4 +1,3 @@
-import React from 'react';
 import { HabitList } from '@/components/habit-list';
 import { WeeklyView } from '@/components/weekly-view';
 import { StatsOverview } from '@/components/stats-overview';

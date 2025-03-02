@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HabitForm } from '@/components/habit-form';
 import { useHabits } from '@/context/HabitContext';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useHabits } from '@/context/HabitContext';
 import { calculateHabitStats } from '@/lib/utils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -7,6 +6,7 @@ import { EmptyState } from '@/components/ui/empty-state';
 import { BarChart, Calendar } from 'lucide-react';
 import { Loading } from '@/components/ui/loading';
 import { HabitCharts } from '@/components/stats/habit-charts';
+import { MonthlyProgress } from '@/components/stats/monthly-progress';
 
 export function Stats() {
   const { habits, isLoading } = useHabits();
@@ -77,6 +77,8 @@ export function Stats() {
       </Card>
       
       <HabitCharts habits={habits} />
+      
+      <MonthlyProgress habits={habits} />
       
       <div className="grid gap-8 md:grid-cols-2">
         <Card className="overflow-hidden">

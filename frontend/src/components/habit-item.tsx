@@ -1,4 +1,3 @@
-import React from 'react';
 import { Habit } from '@/types/habit';
 import { formatDate, calculateHabitStats } from '@/lib/utils';
 import { Checkbox } from '@/components/ui/checkbox';
