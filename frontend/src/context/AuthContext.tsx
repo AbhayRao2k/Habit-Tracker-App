@@ -16,6 +16,7 @@ interface AuthContextType {
   signInWithGithub: () => Promise<void>;
   signUp: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
+  updateProfile: (data: { displayName?: string; photoURL?: string }) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -82,10 +83,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  useEffect(() => {
-    // TODO: Check for existing session
-    setIsLoading(false);
-  }, []);
+  const updateProfile = async (data: { displayName?: string; photoURL?: string }) => {
+    try {
+      setError(null);
+      if (user) {
+        setUser({
+          ...user,
+          displayName: data.displayName ?? user.displayName,
+          photoURL: data.photoURL ?? user.photoURL
+        });
+      }
+    } catch (err) {
+      setError('Failed to update profile');
+      console.error(err);
+    }
+  };
 
   return (
     <AuthContext.Provider
@@ -98,6 +110,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signInWithGithub,
         signUp,
         signOut,
+        updateProfile
       }}
     >
       {children}

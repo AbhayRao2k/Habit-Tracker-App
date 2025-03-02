@@ -14,9 +14,9 @@ export function WeeklyView() {
   }
 
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden bg-background">
       <CardHeader className="px-4 sm:px-6">
-        <CardTitle className="text-lg">Weekly Progress</CardTitle>
+        <CardTitle className="text-lg text-foreground">Weekly Progress</CardTitle>
       </CardHeader>
       <CardContent className="px-2 sm:px-6 pb-6">
         <div className="overflow-x-auto -mx-2 sm:mx-0">

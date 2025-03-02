@@ -13,15 +13,13 @@ export function NewHabit() {
   };
 
   return (
-    <div className="max-w-md mx-auto px-4 sm:px-0">
+    <div className="max-w-md mx-auto py-8 px-4 sm:px-0">
+      <div className="mb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Create New Habit</h1>
+        <p className="text-muted-foreground mt-2">Add a new habit to track your daily progress</p>
+      </div>
       <Card className="overflow-hidden">
-        <CardHeader className="px-4 sm:px-6">
-          <CardTitle>Create New Habit</CardTitle>
-          <CardDescription>
-            Add a new habit to track your daily progress
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="px-4 sm:px-6 pb-6">
+        <CardContent className="p-6">
           <HabitForm 
             onSubmit={handleSubmit} 
             onCancel={() => navigate('/')} 
